@@ -14,6 +14,8 @@ public class Main {
         boolean infinity = true;
         display();
         do {
+            System.out.println("Please select an option:" + "\nD - Delete" + "\nA - Add" + "\nP - Print list" + "\nQ - Quit program");
+
             String userInput = InputHelper.getRedExString(scan, "", "[AaDdPpQq]");
             if (userInput.equalsIgnoreCase("a")) {
                 add();
@@ -52,8 +54,6 @@ public class Main {
             System.out.println();
         }
         System.out.println();
-        //Menu
-        System.out.println("Please select an option:" + "\nD - Delete" + "\nA - Add" + "\nP - Print list" + "\nQ - Quit program");
     }
     private static void delete() {
         System.out.println("where do you want to remove an item?");
