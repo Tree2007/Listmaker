@@ -6,12 +6,16 @@ import java.util.Scanner;
 public class Main {
 
     private static ArrayList<String> list = new ArrayList<String>();
+    private static ArrayList<String> clearList = new ArrayList<String>();
     private static String fileName = "";
     private static Scanner scan = new Scanner(System.in);
 
 
 
     public static void main(String[] args) throws IOException {
+        for (int i = 0; i < 100; i++) {
+            clearList.add(i, "");
+        }
         boolean infinity = true;
         display();
         do {
@@ -71,6 +75,7 @@ public class Main {
     }
     private static void save() throws IOException {
         fileName = InputHelper.getNonZeroLenString(scan, "What would you like to name this file?");
+        //IOHelper.writeFile(clearList, fileName);
         IOHelper.writeFile(list, fileName);
     }
     private static void open() {
