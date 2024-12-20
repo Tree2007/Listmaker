@@ -6,16 +6,13 @@ import java.util.Scanner;
 public class Main {
 
     private static ArrayList<String> list = new ArrayList<String>();
-    private static ArrayList<String> clearList = new ArrayList<String>();
-    private static String fileName = "";
+    private static String fileName = null;
     private static Scanner scan = new Scanner(System.in);
+    private static boolean saved = true;
 
 
 
     public static void main(String[] args) throws IOException {
-        for (int i = 0; i < 100; i++) {
-            clearList.add(i, "");
-        }
         boolean infinity = true;
         display();
         do {
@@ -42,7 +39,13 @@ public class Main {
 
     }
 
-    private static void quit() {
+    private static void quit() throws IOException {
+        if (!saved){
+            boolean saveWant = InputHelper.getYNConfirm(scan, "Do you want to save what you have?");
+            if (saveWant) {
+                save();
+            }
+        }
         boolean quit = false;
         quit = InputHelper.getYNConfirm(scan, "Do you want to quit?");
         if (quit) {
@@ -57,6 +60,7 @@ public class Main {
         } else {
             list.add(position - 1,addition);
         }
+        saved = false;
     }
     private static void display() {
         for (int i = 1; i < list.size() + 1; i++){
@@ -66,6 +70,10 @@ public class Main {
         System.out.println();
     }
     private static void delete() {
+        if (list.size() == 0) {
+            System.out.println("There is nothing to delete");
+            return;
+        }
         System.out.println("where do you want to remove an item?");
         int position = InputHelper.getRangedInt(scan, "where do you want to remove an item?", 1, list.size());
         list.remove(position - 1);
@@ -74,14 +82,23 @@ public class Main {
         list = new ArrayList<>();
     }
     private static void save() throws IOException {
-        fileName = InputHelper.getNonZeroLenString(scan, "What would you like to name this file?");
+        if (fileName == null) {
+            fileName = InputHelper.getNonZeroLenString(scan, "What would you like to name this file?");
+        }
         //IOHelper.writeFile(clearList, fileName);
         IOHelper.writeFile(list, fileName);
     }
-    private static void open() {
+    private static void open() throws IOException {
         list = new ArrayList<>();
+        if (!saved){
+            boolean saveWant = InputHelper.getYNConfirm(scan, "Do you want to save what you have?");
+            if (saveWant) {
+                save();
+            }
+        }
         try {
-            IOHelper.openFile(list);
+            fileName = IOHelper.openFile(list);
+            saved = true;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

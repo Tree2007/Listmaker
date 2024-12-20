@@ -164,7 +164,7 @@ public class InputHelper {
                 done = true;
             } else {
                 System.out.println("Please input a string above 0");
-                scan.nextLine();
+                input = scan.nextLine();
             }
         } while (!done);
         return input;

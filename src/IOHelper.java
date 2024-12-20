@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 
 /*
@@ -109,7 +110,7 @@ public class IOHelper {
             //OutputStream is needed in order to create our Buffered Writer
             //OutputStream allows bytes of data to be written to a file
             //BufferedWriter is our actual writing tool that will be used to write characters to file
-            OutputStream out = new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+            OutputStream out = new BufferedOutputStream(Files.newOutputStream(file, CREATE, TRUNCATE_EXISTING));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
 
             //Actually writing data from recs to new file
